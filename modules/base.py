@@ -1,16 +1,22 @@
 from pymongo import MongoClient
 
-MONGO_DB_ADDRESS = 'localhost:27017'
-MONGO_DB_USER = 'root'
-MONGO_DB_PASSWORD = 'example'
+MONGO_ADDRESS = 'localhost:27017'
+MONGO_USER = 'root'
+MONGO_PASSWORD = 'example'
+
+MONGO_DB_NAME = 'article'
+MONGO_COLLECTION_USER = 'user'
+MONGO_COLLECTION_CHAR = 'char'
+
+
 
 
 class MongoDB(object):
-    def __init__(self, host: str = MONGO_DB_ADDRESS,
+    def __init__(self, host: str = MONGO_ADDRESS,
                  port: int = 27017,
-                 db_name: str = None,
-                 collection: str = None):
-        self._client = MongoClient(f'mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{host}/')
+                 db_name: str = MONGO_DB_NAME,
+                 collection: str = MONGO_COLLECTION_USER):
+        self._client = MongoClient(f'mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{host}/')
         self._collection = self._client[db_name][collection]
 
     def create_user(self, user: dict):
@@ -27,6 +33,8 @@ class MongoDB(object):
     def get_all_users(self):
         try:
             data = self._collection.find()
+            for post in self._collection.find():
+                print(post)
             print("Get all users")
             return data
         except Exception as ex:
@@ -52,3 +60,24 @@ class MongoDB(object):
         except Exception as ex:
             print("[change_user] Some problem...")
             print(ex)
+
+
+class CharDB(object):
+    def __init__(self, host: str = MONGO_ADDRESS,
+                 port: int = 27017,
+                 db_name: str = MONGO_DB_NAME,
+                 collection: str = MONGO_COLLECTION_CHAR):
+        self._client = MongoClient(f'mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{host}/')
+        self._collection = self._client[db_name][collection]
+
+    def find_by_name(self, name: str):
+        try:
+            print({"name": {"value": name}})
+            data = self._collection.find_one({"name": {"value": name}})
+            print("Get char by name")
+            return data
+        except Exception as ex:
+            print("[find_by_username] Some problem...")
+            print(ex)
+    def test(self):
+        print('ffffff')
