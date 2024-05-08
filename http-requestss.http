@@ -1,0 +1,29 @@
+
+###
+# создание персонажа
+POST http://127.0.0.1:5000/char/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "isDefault": "True",
+  "jsonType": "character",
+  "template": "default",
+  "name": {
+      "value": "Седьмой"
+  },
+  "info": {
+      "charClass": {
+          "name": "charClass",
+          "label": "класс и уровень",
+          "value": "Жрец(Домен сумрака)"
+      },
+      "level": {
+          "name": "level",
+          "label": "уровень",
+          "value": 3
+      }}}
+
+###
+# олучение персонажа
+GET  http://127.0.0.1:5000/char/Седьмой HTTP/1.1
+Content-Type: application/json
