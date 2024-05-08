@@ -14,6 +14,6 @@ print(user_profile)
 
 char_base = CharDB()
 
-char_base.test()
-char_base.find_by_name("Уэллби Мертвослав")
+# char_base.test()
+print(char_base.find_by_name("Уэллби Мертвослав"))
 

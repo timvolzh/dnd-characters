@@ -1,19 +1,24 @@
 
-import json
-import asyncpg
+import flask
+from flask import Flask, request
+from flask.views import MethodView
 
-from aiohttp import web
+from modules.base import MongoDB, CharDB
 
-app = web.Application()
+app = Flask('app')
+
+@app.route('/home')
+def home():
+    return flask.jsonify({'status': 'works'})
+
+'''
+@app.errorhandler(HttpError)
+def handle_http_error(error):
+    response = flask.jsonify({'message': error.message})
+    response.status_code = error.status_code
+    return response
+'''
 
 
-class CharView(web.View):
-
-    async def get(self):
-        char_name = str(self.request.match_info['char_name'])
-
-
-
-
-
+app.run()
 
