@@ -10,7 +10,7 @@ MONGO_COLLECTION_CHAR = 'char'
 
 
 
-
+'''
 class MongoDB(object):
     def __init__(self, host: str = MONGO_ADDRESS,
                  port: int = 27017,
@@ -60,6 +60,7 @@ class MongoDB(object):
         except Exception as ex:
             print("[change_user] Some problem...")
             print(ex)
+            '''
 
 
 class CharDB(object):
@@ -72,12 +73,14 @@ class CharDB(object):
 
     def find_by_name(self, name: str):
         try:
-            print({"name": {"value": name}})
             data = self._collection.find_one({"name": {"value": name}})
-            print("Get char by name")
+            print(f"Get char by name ('name': 'value': {name})")
+            del data['_id']
+            print(data)
             return data
         except Exception as ex:
             print("[find_by_username] Some problem...")
             print(ex)
+
     def test(self):
         print('ffffff')

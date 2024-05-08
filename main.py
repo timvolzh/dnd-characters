@@ -1,9 +1,9 @@
 
-from modules.base import MongoDB, CharDB
+from modules.base import CharDB
 import faker
 
 
-dbase = MongoDB()
+#dbase = MongoDB()
 
 faker_obj = faker.Faker()
 
