@@ -1,5 +1,11 @@
+import json
+
+from cffi.backend_ctypes import unicode
+
 from modules.base import CharDB
 import faker
+
+faker_obj = faker.Faker()
 
 '''
 dbase = MongoDB()
@@ -14,7 +20,36 @@ print(user_profile)
 
 char_base = CharDB()
 
-# char_base.test()
-print(char_base.find_by_name("Уэллби"))
-print(type(char_base.find_by_name("Уэллби")))
 
+def get_test():
+    char = char_base.find_by_name("Уэллби")
+    print(char)
+    print(type(char))
+    char_str = json.dumps(char)
+    print(char_str)
+    print(type(char_str))
+    char = {k: unicode(v).encode("utf-8") for k, v in char.items()}
+    print(char)
+    print(type(char))
+
+
+char_profile = {
+    'isDefault': True,
+    'jsonType': 'character',
+    'template': 'default',
+    'name': {
+        'value': 'Third'
+    },
+    'info': {
+        'charClass': {
+            'name': 'charClass',
+            'label': 'класс и уровень',
+            'value': 'Жрец(Домен сумрака)'
+        },
+        'level': {
+            'name': 'level',
+            'label': 'уровень',
+            'value': 3
+        }}}
+print(char_profile['name'])
+creation = char_base.create_char(char_profile)

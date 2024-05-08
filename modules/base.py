@@ -71,6 +71,19 @@ class CharDB(object):
         self._client = MongoClient(f'mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{host}/')
         self._collection = self._client[db_name][collection]
 
+    def create_char(self, char: dict):
+        print(char)
+        try:
+            if self._collection.find_one({"name": char['name']}) is None:
+                self._collection.insert_one(char)
+                print(f"Added New user: {char['name']}")
+            else:
+                print(f"User: {char.get('username')} in collection")
+        except Exception as ex:
+            print("[create_char] Some problem...")
+            print(ex)
+        return
+
     def find_by_name(self, name: str):
         try:
             data = self._collection.find_one({"name": {"value": name}})
@@ -79,7 +92,7 @@ class CharDB(object):
             print(data)
             return data
         except Exception as ex:
-            print("[find_by_username] Some problem...")
+            print("[find_by_name] Some problem...")
             print(ex)
 
     def test(self):

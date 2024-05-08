@@ -1,11 +1,14 @@
+import json
+
 import flask
+from cffi.backend_ctypes import unicode
 from flask import Flask, request
 from flask.views import MethodView
 
 from modules.base import CharDB
 
 app = Flask('app')
-#app.config['JSON_AS_ASCII'] = False
+app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/home')
@@ -21,10 +24,15 @@ class CharView(MethodView):
     def __init__(self):
         self.db = CharDB()
 
+    def create(self):
+        data = request.json.dict()
+
+        return
+
     def get(self, char_name: str):
         try:
             char = self.db.find_by_name(char_name)
-
+            # char = {k: unicode(v).encode("utf-8") for k, v in char.items()}
         except Exception as er:
             raise HttpError(404, str(er))
         return flask.jsonify(char)
