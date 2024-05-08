@@ -76,9 +76,11 @@ class CharDB(object):
         try:
             if self._collection.find_one({"name": char['name']}) is None:
                 self._collection.insert_one(char)
-                print(f"Added New user: {char['name']}")
+                print(f"Added New char: {char['name']['value']}")
+                return f"Added New char: {char['name']['value']}"
             else:
-                print(f"User: {char.get('username')} in collection")
+                print(f"Char: {char['name']['value']} already in collection")
+                return f"Char: {char['name']['value']} already  in collection"
         except Exception as ex:
             print("[create_char] Some problem...")
             print(ex)
