@@ -7,7 +7,7 @@ from flask.views import MethodView
 
 from modules.base import CharDB
 
-app = Flask('app')
+app = Flask('apps')
 app.config['JSON_AS_ASCII'] = False
 
 
@@ -31,7 +31,6 @@ class CharView(MethodView):
             return flask.jsonify({"Result": f"{response}"})
         except Exception as ex:
             return flask.jsonify({"Exception": f"{ex}"})
-
 
     def get(self, char_name: str):
         try:
